@@ -5,6 +5,25 @@ An educational chatbot for **fictional Cedar University**, with a catalog of
 Ask about course details, offering terms, and prerequisites through a Chainlit
 chat interface.
 
+RDFLib loads the catalog, and LangGraph connects the LLM to the graph tools.
+The model selects a tool, receives its results, and explains them in the chat.
+
+```mermaid
+flowchart LR
+    TTL[course_catalog.ttl] --> Catalog[RDFLib catalog graph]
+    Catalog --> Tools[Graph tools]
+    Chat[Chainlit chat] --> Assistant[LLM assistant]
+    Assistant -->|tool calls| Tools
+    Tools -->|results| Assistant
+    Assistant -->|answer| Chat
+```
+
+The chatbot uses four tools: list_courses finds courses by category or offering
+term; get_course_details returns a course's description, credits, terms, and
+direct prerequisites; get_prerequisites finds direct and indirect requirements;
+and check_prerequisites compares those requirements with your completed courses
+to identify what is satisfied or missing. You can refer to courses by ID or name.
+
 ## Setup and run
 
 Use **Python 3.11 or newer**. Run these commands from the project root:
@@ -51,29 +70,6 @@ requirements and subclass relationships to include courses in parent categories.
 For example, Algorithms requires Data Structures, which requires Object-Oriented
 Programming, which requires Introduction to Programming. Deep Learning also
 appears when searching for AI courses through its category hierarchy.
-
-## How it works
-
-RDFLib loads the catalog, and LangGraph connects the LLM to the graph tools.
-The model selects a tool, receives its results, and explains them in the chat.
-
-```mermaid
-flowchart LR
-    TTL[course_catalog.ttl] --> Catalog[RDFLib catalog graph]
-    Catalog --> Tools[Graph tools]
-    Chat[Chainlit chat] --> Assistant[LLM assistant]
-    Assistant -->|tool calls| Tools
-    Tools -->|results| Assistant
-    Assistant -->|answer| Chat
-```
-
-## Tools
-
-The chatbot uses four tools: list_courses finds courses by category or offering
-term; get_course_details returns a course's description, credits, terms, and
-direct prerequisites; get_prerequisites finds direct and indirect requirements;
-and check_prerequisites compares those requirements with your completed courses
-to identify what is satisfied or missing. You can refer to courses by ID or name.
 
 ## Example questions
 
