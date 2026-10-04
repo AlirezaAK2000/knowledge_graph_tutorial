@@ -1,0 +1,10 @@
+[UI]
+name = "Cedar Course Advisor"
+description = "Explore a fictional course catalog with graph-grounded answers."
+cot = "tool_call"
+
+[features]
+spontaneous_file_upload.enabled = false
+
+[meta]
+generated_by = "2.12.0"

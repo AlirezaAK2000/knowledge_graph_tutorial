@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1152pt" height="648pt" viewBox="0 0 1152 648" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-03T17:06:58.781668</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 648 
+L 1152 648 
+L 1152 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 532.8 216 
+Q 619.2 216 702.693112 216 
+" clip-path="url(#pe7361bedb5)" style="fill: none; stroke: #ac5708; stroke-width: 2.6; stroke-linecap: round"/>
+    <path d="M 693.493112 211.4 
+L 702.693112 216 
+L 693.493112 220.6 
+z
+" clip-path="url(#pe7361bedb5)" style="fill: #ac5708; stroke: #ac5708; stroke-width: 2.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 198 372.6 
+Q 277.2 329.4 353.848056 287.59197 
+" clip-path="url(#pe7361bedb5)" style="fill: none; stroke: #087a70; stroke-width: 2.6; stroke-linecap: round"/>
+    <path d="M 343.568696 287.95909 
+L 353.848056 287.59197 
+L 347.974136 296.035729 
+z
+" clip-path="url(#pe7361bedb5)" style="fill: #087a70; stroke: #087a70; stroke-width: 2.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 576 372.6 
+Q 689.4 329.4 800.083548 287.234839 
+" clip-path="url(#pe7361bedb5)" style="fill: none; stroke: #7041b5; stroke-width: 2.6; stroke-linecap: round"/>
+    <path d="M 789.848683 286.211352 
+L 800.083548 287.234839 
+L 793.12384 294.808639 
+z
+" clip-path="url(#pe7361bedb5)" style="fill: #7041b5; stroke: #7041b5; stroke-width: 2.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 954 372.6 
+Q 927 329.4 901.540648 288.665036 
+" clip-path="url(#pe7361bedb5)" style="fill: none; stroke: #ac5708; stroke-width: 2.6; stroke-linecap: round"/>
+    <path d="M 902.515846 298.904616 
+L 901.540648 288.665036 
+L 910.31743 294.028626 
+z
+" clip-path="url(#pe7361bedb5)" style="fill: #ac5708; stroke: #ac5708; stroke-width: 2.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 256.32 286.2 
+L 521.28 286.2 
+Q 532.8 286.2 532.8 274.68 
+L 532.8 157.32 
+Q 532.8 145.8 521.28 145.8 
+L 256.32 145.8 
+Q 244.8 145.8 244.8 157.32 
+L 244.8 274.68 
+Q 244.8 286.2 256.32 286.2 
+z
+" clip-path="url(#pe7361bedb5)" style="fill: #fff3e0; stroke: #ac5708; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 717.12 286.2 
+L 982.08 286.2 
+Q 993.6 286.2 993.6 274.68 
+L 993.6 157.32 
+Q 993.6 145.8 982.08 145.8 
+L 717.12 145.8 
+Q 705.6 145.8 705.6 157.32 
+L 705.6 274.68 
+Q 705.6 286.2 717.12 286.2 
+z
+" clip-path="url(#pe7361bedb5)" style="fill: #ecf3ff; stroke: #2263bb; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 65.52 527.4 
+L 330.48 527.4 
+Q 342 527.4 342 515.88 
+L 342 384.12 
+Q 342 372.6 330.48 372.6 
+L 65.52 372.6 
+Q 54 372.6 54 384.12 
+L 54 515.88 
+Q 54 527.4 65.52 527.4 
+z
+" clip-path="url(#pe7361bedb5)" style="fill: #eaf7f4; stroke: #087a70; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 443.52 527.4 
+L 708.48 527.4 
+Q 720 527.4 720 515.88 
+L 720 384.12 
+Q 720 372.6 708.48 372.6 
+L 443.52 372.6 
+Q 432 372.6 432 384.12 
+L 432 515.88 
+Q 432 527.4 443.52 527.4 
+z
+" clip-path="url(#pe7361bedb5)" style="fill: #f3edfb; stroke: #7041b5; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 821.52 527.4 
+L 1086.48 527.4 
+Q 1098 527.4 1098 515.88 
+L 1098 384.12 
+Q 1098 372.6 1086.48 372.6 
+L 821.52 372.6 
+Q 810 372.6 810 384.12 
+L 810 515.88 
+Q 810 527.4 821.52 527.4 
+z
+" clip-path="url(#pe7361bedb5)" style="fill: #fff3e0; stroke: #ac5708; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #526176" x="54" y="28.836719" transform="rotate(-0 54 28.836719)">LW-KG  /  MANUFACTURING ROOT-CAUSE ANALYSIS</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #526176" x="1098" y="28.836719" transform="rotate(-0 1098 28.836719)">02</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 34px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17283f" x="54" y="78.673359" transform="rotate(-0 54 78.673359)">Ground the investigation in checks and rules</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #526176" x="54" y="118.17668" transform="rotate(-0 54 118.17668)">QC pressure branch · the shared parameter connects a cause, check, action, and A12 limit.</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ac5708" x="388.8" y="169.596719" transform="rotate(-0 388.8 169.596719)">CAUSE</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 22px; font-family: 'DejaVu Sans'; fill: #17283f" transform="translate(276.582813 214.544688)">Wrong QC ingoing</text>
+    <text style="font-weight: 700; font-size: 22px; font-family: 'DejaVu Sans'; fill: #17283f" transform="translate(264.505156 241.030625)">pressure for variant</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #2263bb" x="849.6" y="169.596719" transform="rotate(-0 849.6 169.596719)">PARAMETER</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 24px; font-family: 'DejaVu Sans'; fill: #17283f" transform="translate(778.98375 205.96875)">qc ingoing</text>
+    <text style="font-weight: 700; font-size: 24px; font-family: 'DejaVu Sans'; fill: #17283f" transform="translate(790.070625 232.464375)">pressure</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #2263bb" x="849.6" y="271.17668" transform="rotate(-0 849.6 271.17668)">unit: bar</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #087a70" x="198" y="396.396719" transform="rotate(-0 198 396.396719)">ACTION</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 20px; font-family: 'DejaVu Sans'; fill: #17283f" transform="translate(74.282812 437.200625)">Adjust QC pressure to</text>
+    <text style="font-weight: 700; font-size: 20px; font-family: 'DejaVu Sans'; fill: #17283f" transform="translate(94.559375 461.200625)">variant target and</text>
+    <text style="font-weight: 700; font-size: 20px; font-family: 'DejaVu Sans'; fill: #17283f" transform="translate(163.992188 486.639687)">retest</text>
+   </g>
+   <g id="text_12">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #7041b5" x="576" y="396.396719" transform="rotate(-0 576 396.396719)">CHECK</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 20px; font-family: 'DejaVu Sans'; fill: #17283f" transform="translate(470.385938 449.200625)">Verify QC pressure</text>
+    <text style="font-weight: 700; font-size: 20px; font-family: 'DejaVu Sans'; fill: #17283f" transform="translate(466.178125 473.200625)">setpoint and gauge</text>
+   </g>
+   <g id="text_14">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ac5708" x="954" y="396.396719" transform="rotate(-0 954 396.396719)">RULE</text>
+   </g>
+   <g id="text_15">
+    <text style="font-weight: 700; font-size: 20px; font-family: 'DejaVu Sans'; fill: #17283f" transform="translate(826.776562 441.280625)">QC pressure target for</text>
+    <text style="font-weight: 700; font-size: 20px; font-family: 'DejaVu Sans'; fill: #17283f" transform="translate(932.345312 467.261875)">A12</text>
+   </g>
+   <g id="text_16">
+    <text style="font-weight: 700; font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ac5708" x="954" y="512.37668" transform="rotate(-0 954 512.37668)">4.8–5.2 bar</text>
+   </g>
+   <g id="text_17">
+    <g id="patch_11">
+     <path d="M 546.54 197.040625 
+L 691.86 197.040625 
+L 691.86 173.039375 
+L 546.54 173.039375 
+z
+" style="fill: #ffffff"/>
+    </g>
+    <text style="font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ac5708" x="619.2" y="189.196875" transform="rotate(-0 619.2 189.196875)">affectsParameter</text>
+   </g>
+   <g id="text_18">
+    <g id="patch_12">
+     <path d="M 149.77 330.960625 
+L 282.23 330.960625 
+L 282.23 306.959375 
+L 149.77 306.959375 
+z
+" style="fill: #ffffff"/>
+    </g>
+    <text style="font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #087a70" x="216" y="323.116875" transform="rotate(-0 216 323.116875)">mitigatesCause</text>
+   </g>
+   <g id="text_19">
+    <g id="patch_13">
+     <path d="M 566.92125 345.36 
+L 736.27875 345.36 
+L 736.27875 321.36 
+L 566.92125 321.36 
+z
+" style="fill: #ffffff"/>
+    </g>
+    <text style="font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #7041b5" x="651.6" y="337.51625" transform="rotate(-0 651.6 337.51625)">measuresParameter</text>
+   </g>
+   <g id="text_20">
+    <g id="patch_14">
+     <path d="M 906.6625 333.840625 
+L 1076.2175 333.840625 
+L 1076.2175 309.839375 
+L 906.6625 309.839375 
+z
+" style="fill: #ffffff"/>
+    </g>
+    <text style="font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ac5708" x="991.44" y="325.996875" transform="rotate(-0 991.44 325.996875)">ruleAboutParameter</text>
+   </g>
+   <g id="text_21">
+    <text style="font-weight: 700; font-size: 21px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17283f" x="576" y="584.335898" transform="rotate(-0 576 584.335898)">Trace the recommendation through explicit, inspectable relationships.</text>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #526176" x="54" y="624.997266" transform="rotate(-0 54 624.997266)">All arrows are recorded RDF triples. The pressure range is an example rule stored in the project's Turtle file.</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pe7361bedb5">
+   <rect x="0" y="0" width="1152" height="648"/>
+  </clipPath>
+ </defs>
+</svg>

@@ -1,0 +1,173 @@
+@prefix ex:   <https://example.org/course-advisor#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+# Ontology: categories are classes; the application follows subclass edges.
+# Only hasDirectPrerequisite edges are recorded. Python traversal finds indirect
+# requirements on demand; no additional triples are added to the graph.
+# OWL property declarations document the vocabulary without running a reasoner.
+# Every recorded prerequisite is mandatory. The prerequisite graph is acyclic.
+ex:Catalog a owl:Ontology ;
+    rdfs:label "Fictional Cedar University course catalog" .
+
+ex:Course a owl:Class ; rdfs:label "Course" .
+ex:ComputingCourse a owl:Class ; rdfs:subClassOf ex:Course ;
+    rdfs:label "Computing" .
+ex:ProgrammingCourse a owl:Class ; rdfs:subClassOf ex:ComputingCourse ;
+    rdfs:label "Programming" .
+ex:MathematicsCourse a owl:Class ; rdfs:subClassOf ex:Course ;
+    rdfs:label "Mathematics" .
+ex:AICourse a owl:Class ; rdfs:subClassOf ex:ComputingCourse ;
+    rdfs:label "AI" .
+ex:MachineLearningCourse a owl:Class ; rdfs:subClassOf ex:AICourse ;
+    rdfs:label "Machine Learning" .
+ex:DeepLearningCourse a owl:Class ; rdfs:subClassOf ex:MachineLearningCourse ;
+    rdfs:label "Deep Learning" .
+ex:RoboticsCourse a owl:Class ; rdfs:subClassOf ex:ComputingCourse ;
+    rdfs:label "Robotics" .
+ex:OfferingTerm a owl:Class ; rdfs:label "Offering term" .
+ex:Fall a ex:OfferingTerm ; rdfs:label "Fall" .
+ex:Spring a ex:OfferingTerm ; rdfs:label "Spring" .
+ex:Summer a ex:OfferingTerm ; rdfs:label "Summer" .
+
+ex:courseId a owl:DatatypeProperty ;
+    rdfs:domain ex:Course ; rdfs:range xsd:string .
+ex:name a owl:DatatypeProperty ;
+    rdfs:domain ex:Course ; rdfs:range xsd:string .
+ex:description a owl:DatatypeProperty ;
+    rdfs:domain ex:Course ; rdfs:range xsd:string .
+ex:credits a owl:DatatypeProperty ;
+    rdfs:domain ex:Course ; rdfs:range xsd:integer .
+ex:offeredIn a owl:ObjectProperty ;
+    rdfs:domain ex:Course ; rdfs:range ex:OfferingTerm .
+ex:hasPrerequisite a owl:ObjectProperty, owl:TransitiveProperty ;
+    rdfs:domain ex:Course ; rdfs:range ex:Course .
+ex:hasDirectPrerequisite a owl:ObjectProperty ;
+    rdfs:domain ex:Course ; rdfs:range ex:Course ;
+    rdfs:subPropertyOf ex:hasPrerequisite .
+
+# Programming (4 courses)
+ex:CS101 a ex:ProgrammingCourse ;
+    ex:courseId "CS101" ; ex:name "Introduction to Programming" ;
+    ex:description "Variables, control flow, functions, and basic Python programs." ;
+    ex:credits 3 ; ex:offeredIn ex:Fall, ex:Spring .
+
+ex:CS102 a ex:ProgrammingCourse ;
+    ex:courseId "CS102" ; ex:name "Object-Oriented Programming" ;
+    ex:description "Classes, objects, encapsulation, and small software projects." ;
+    ex:credits 3 ; ex:offeredIn ex:Spring ;
+    ex:hasDirectPrerequisite ex:CS101 .
+
+ex:CS201 a ex:ProgrammingCourse ;
+    ex:courseId "CS201" ; ex:name "Data Structures" ;
+    ex:description "Lists, trees, hash tables, and graph representations." ;
+    ex:credits 4 ; ex:offeredIn ex:Fall ;
+    ex:hasDirectPrerequisite ex:CS102 .
+
+ex:CS202 a ex:ProgrammingCourse ;
+    ex:courseId "CS202" ; ex:name "Algorithms" ;
+    ex:description "Algorithm analysis, sorting, dynamic programming, and graph algorithms." ;
+    ex:credits 4 ; ex:offeredIn ex:Spring ;
+    ex:hasDirectPrerequisite ex:CS201 .
+
+# Mathematics (4 courses)
+ex:MA101 a ex:MathematicsCourse ;
+    ex:courseId "MA101" ; ex:name "Calculus" ;
+    ex:description "Limits, derivatives, integrals, and applications." ;
+    ex:credits 4 ; ex:offeredIn ex:Fall, ex:Spring .
+
+ex:MA102 a ex:MathematicsCourse ;
+    ex:courseId "MA102" ; ex:name "Linear Algebra" ;
+    ex:description "Vectors, matrices, linear systems, and eigenvalues." ;
+    ex:credits 3 ; ex:offeredIn ex:Fall, ex:Spring .
+
+ex:MA201 a ex:MathematicsCourse ;
+    ex:courseId "MA201" ; ex:name "Probability and Statistics" ;
+    ex:description "Random variables, probability distributions, estimation, and inference." ;
+    ex:credits 3 ; ex:offeredIn ex:Spring ;
+    ex:hasDirectPrerequisite ex:MA101 .
+
+ex:MA202 a ex:MathematicsCourse ;
+    ex:courseId "MA202" ; ex:name "Optimization" ;
+    ex:description "Gradient methods, constrained optimization, and convex problems." ;
+    ex:credits 3 ; ex:offeredIn ex:Fall ;
+    ex:hasDirectPrerequisite ex:MA101, ex:MA102 .
+
+# Artificial intelligence (4 courses)
+ex:AI101 a ex:AICourse ;
+    ex:courseId "AI101" ; ex:name "Introduction to Artificial Intelligence" ;
+    ex:description "Intelligent agents, search, reasoning, and introductory learning." ;
+    ex:credits 3 ; ex:offeredIn ex:Fall ;
+    ex:hasDirectPrerequisite ex:CS101 .
+
+ex:AI201 a ex:AICourse ;
+    ex:courseId "AI201" ; ex:name "Search and Planning" ;
+    ex:description "Heuristic search, state-space planning, and decision problems." ;
+    ex:credits 3 ; ex:offeredIn ex:Spring ;
+    ex:hasDirectPrerequisite ex:AI101, ex:CS201 .
+
+ex:AI202 a ex:AICourse ;
+    ex:courseId "AI202" ; ex:name "Knowledge Representation" ;
+    ex:description "Logic, RDF knowledge graphs, ontologies, and symbolic reasoning." ;
+    ex:credits 3 ; ex:offeredIn ex:Spring ;
+    ex:hasDirectPrerequisite ex:AI101 .
+
+# Offering terms intentionally absent: absence means unknown, not never offered.
+ex:AI301 a ex:AICourse ;
+    ex:courseId "AI301" ; ex:name "Natural Language Processing" ;
+    ex:description "Text processing, language models, and linguistic applications." ;
+    ex:credits 3 ;
+    ex:hasDirectPrerequisite ex:ML201, ex:CS201 .
+
+# Machine learning (4 courses, including one deeper subclass)
+ex:ML201 a ex:MachineLearningCourse ;
+    ex:courseId "ML201" ; ex:name "Introduction to Machine Learning" ;
+    ex:description "Supervised learning, model evaluation, and basic unsupervised learning." ;
+    ex:credits 4 ; ex:offeredIn ex:Fall ;
+    ex:hasDirectPrerequisite ex:CS101, ex:MA102, ex:MA201 .
+
+ex:ML301 a ex:DeepLearningCourse ;
+    ex:courseId "ML301" ; ex:name "Deep Learning" ;
+    ex:description "Neural networks, backpropagation, and deep model architectures." ;
+    ex:credits 4 ; ex:offeredIn ex:Spring ;
+    ex:hasDirectPrerequisite ex:ML201, ex:MA202 .
+
+ex:ML302 a ex:MachineLearningCourse ;
+    ex:courseId "ML302" ; ex:name "Reinforcement Learning" ;
+    ex:description "Markov decision processes, rewards, and learning control policies." ;
+    ex:credits 3 ; ex:offeredIn ex:Spring ;
+    ex:hasDirectPrerequisite ex:ML201, ex:AI201 .
+
+ex:ML303 a ex:MachineLearningCourse ;
+    ex:courseId "ML303" ; ex:name "Computer Vision" ;
+    ex:description "Image features, visual recognition, and neural image models." ;
+    ex:credits 3 ; ex:offeredIn ex:Fall ;
+    ex:hasDirectPrerequisite ex:ML301 .
+
+# Robotics (4 courses)
+ex:RB101 a ex:RoboticsCourse ;
+    ex:courseId "RB101" ; ex:name "Introduction to Robotics" ;
+    ex:description "Robot components, sensors, actuators, and basic robot programming." ;
+    ex:credits 3 ; ex:offeredIn ex:Fall ;
+    ex:hasDirectPrerequisite ex:CS101 .
+
+ex:RB201 a ex:RoboticsCourse ;
+    ex:courseId "RB201" ; ex:name "Robot Kinematics" ;
+    ex:description "Coordinate frames, transformations, and manipulator motion." ;
+    ex:credits 3 ; ex:offeredIn ex:Spring ;
+    ex:hasDirectPrerequisite ex:RB101, ex:MA102 .
+
+ex:RB202 a ex:RoboticsCourse ;
+    ex:courseId "RB202" ; ex:name "Robot Control" ;
+    ex:description "Feedback control, robot dynamics, and trajectory tracking." ;
+    ex:credits 4 ; ex:offeredIn ex:Fall ;
+    ex:hasDirectPrerequisite ex:RB201, ex:MA202 .
+
+# Second intentional gap in offering-term information.
+ex:RB301 a ex:RoboticsCourse ;
+    ex:courseId "RB301" ; ex:name "Autonomous Robotics" ;
+    ex:description "Robot perception, navigation, planning, and learned behavior." ;
+    ex:credits 4 ;
+    ex:hasDirectPrerequisite ex:RB202, ex:ML302 .

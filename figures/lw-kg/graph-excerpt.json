@@ -1,0 +1,91 @@
+{
+  "source": "/Users/alirezaak/projects/LW-KG/src/manufacturing_rca/data/knowledge_graph.ttl",
+  "namespace": "http://example.org/airend#",
+  "interpretation": "Selected asserted subgraphs; graph traversal, no inferred diagnosis.",
+  "candidate_causes": [
+    {
+      "subject": "Symptom_QC_Eff_Low",
+      "predicate": "suggestsFailureMode",
+      "object": "FM_TestSetupError",
+      "subject_label": "QC efficiency below 99.99%",
+      "object_label": "Test setup error"
+    },
+    {
+      "subject": "FM_TestSetupError",
+      "predicate": "hasCause",
+      "object": "Cause_WrongQCPressure",
+      "subject_label": "Test setup error",
+      "object_label": "Wrong QC ingoing pressure for variant"
+    },
+    {
+      "subject": "Symptom_QC_Eff_Low",
+      "predicate": "suggestsFailureMode",
+      "object": "FM_InsufficientHardening",
+      "subject_label": "QC efficiency below 99.99%",
+      "object_label": "Insufficient hardening of coating"
+    },
+    {
+      "subject": "FM_InsufficientHardening",
+      "predicate": "hasCause",
+      "object": "Cause_OvenControlDrift",
+      "subject_label": "Insufficient hardening of coating",
+      "object_label": "Oven control drift / cycle deviation"
+    },
+    {
+      "subject": "Symptom_QC_Eff_Low",
+      "predicate": "suggestsFailureMode",
+      "object": "FM_RotorGeometryDeviation",
+      "subject_label": "QC efficiency below 99.99%",
+      "object_label": "Rotor geometry deviation"
+    },
+    {
+      "subject": "FM_RotorGeometryDeviation",
+      "predicate": "hasCause",
+      "object": "Cause_ToolWearHigh",
+      "subject_label": "Rotor geometry deviation",
+      "object_label": "Tool wear high"
+    }
+  ],
+  "pressure_evidence": {
+    "edges": [
+      {
+        "subject": "Cause_WrongQCPressure",
+        "predicate": "affectsParameter",
+        "object": "qc_ingoing_pressure",
+        "subject_label": "Wrong QC ingoing pressure for variant",
+        "object_label": "qc_ingoing_pressure"
+      },
+      {
+        "subject": "Action_Adjust_QC_Pressure_Retest",
+        "predicate": "mitigatesCause",
+        "object": "Cause_WrongQCPressure",
+        "subject_label": "Adjust QC pressure to variant target and retest",
+        "object_label": "Wrong QC ingoing pressure for variant"
+      },
+      {
+        "subject": "Check_Verify_QC_Pressure",
+        "predicate": "measuresParameter",
+        "object": "qc_ingoing_pressure",
+        "subject_label": "Verify QC pressure setpoint and gauge",
+        "object_label": "qc_ingoing_pressure"
+      },
+      {
+        "subject": "Rule_QC_Pressure_A12",
+        "predicate": "ruleAboutParameter",
+        "object": "qc_ingoing_pressure",
+        "subject_label": "QC pressure target for A12",
+        "object_label": "qc_ingoing_pressure"
+      }
+    ],
+    "rule": {
+      "id": "Rule_QC_Pressure_A12",
+      "minimum": "4.8",
+      "maximum": "5.2",
+      "unit": "bar"
+    },
+    "parameter": {
+      "id": "qc_ingoing_pressure",
+      "unit": "bar"
+    }
+  }
+}
