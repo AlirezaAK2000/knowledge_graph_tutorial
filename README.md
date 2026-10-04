@@ -5,8 +5,33 @@ An educational chatbot for **fictional Cedar University**, with a catalog of
 Ask about course details, offering terms, and prerequisites through a Chainlit
 chat interface.
 
-RDFLib loads the catalog, and LangGraph connects the LLM to the graph tools.
-The model selects a tool, receives its results, and explains them in the chat.
+The [catalog Turtle file](data/course_catalog.ttl) contains both the ontology
+and the course instances. The ontology defines course categories, offering
+terms, and properties such as names, credits, and prerequisites. The instances
+provide each course's details and relationships using that vocabulary.
+
+Categories form a subclass hierarchy: Computing includes Programming, Robotics,
+and AI; AI includes Machine Learning, which includes Deep Learning. Offering
+terms are Fall, Spring, and Summer.
+
+![Course catalog ontology](img/ontology.jpg)
+
+RDFLib loads this knowledge graph, and graph traversal finds indirect
+prerequisites and parent categories. For example, Algorithms requires Data
+Structures, which requires Object-Oriented Programming, which requires
+Introduction to Programming. Following the category hierarchy also includes
+Deep Learning when searching for AI courses.
+
+Four tools expose this graph to the chatbot: list_courses finds courses by
+category or offering term; get_course_details returns a course's description,
+credits, terms, and direct prerequisites; get_prerequisites finds direct and
+indirect requirements; and check_prerequisites compares those requirements with
+your completed courses to identify what is satisfied or missing. You can refer
+to courses by ID or name.
+
+LangGraph connects the LLM to these tools. For each question, the model selects
+the tools it needs, receives graph results, and explains them in the Chainlit
+chat interface.
 
 ```mermaid
 flowchart LR
@@ -17,12 +42,6 @@ flowchart LR
     Tools -->|results| Assistant
     Assistant -->|answer| Chat
 ```
-
-The chatbot uses four tools: list_courses finds courses by category or offering
-term; get_course_details returns a course's description, credits, terms, and
-direct prerequisites; get_prerequisites finds direct and indirect requirements;
-and check_prerequisites compares those requirements with your completed courses
-to identify what is satisfied or missing. You can refer to courses by ID or name.
 
 ## Setup and run
 
@@ -52,24 +71,6 @@ chainlit run app.py
 Open [localhost:8000](http://localhost:8000) to chat. Expand the tool steps to
 inspect the queries and graph results behind each answer. Restart the app after
 changing `.env`.
-
-## Catalog ontology
-
-The [catalog Turtle file](data/course_catalog.ttl) contains the ontology and
-course instances. It defines course categories, offering terms, and properties
-for course IDs, names, descriptions, credits, and prerequisites.
-
-![Course catalog ontology](img/ontology.jpg)
-
-Categories form a subclass hierarchy: Computing includes Programming, Robotics,
-and AI; AI includes Machine Learning, which includes Deep Learning. Offering
-terms are Fall, Spring, and Summer.
-
-The application traverses prerequisite relationships to find indirect
-requirements and subclass relationships to include courses in parent categories.
-For example, Algorithms requires Data Structures, which requires Object-Oriented
-Programming, which requires Introduction to Programming. Deep Learning also
-appears when searching for AI courses through its category hierarchy.
 
 ## Example questions
 
