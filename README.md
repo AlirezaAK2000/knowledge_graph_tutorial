@@ -1,7 +1,7 @@
 # Ontology-grounded course advisor
 
-A small educational chatbot for **fictional Cedar University**, designed for a
-20-minute tutorial. Ask about 20 courses by name, inspect the tool evidence, and
+A small educational chatbot for **fictional Cedar University**. Ask about
+20 courses by name, inspect the tool evidence, and
 see how graph traversal finds parent categories and indirect prerequisites.
 The catalog covers programming, mathematics, AI, machine learning, and robotics.
 
@@ -83,7 +83,7 @@ requirements.txt          compatible pinned direct dependencies
 .env.example              GPT environment-variable placeholders
 .gitignore                excludes secrets, virtual environment and generated files
 .chainlit/config.toml     app name and tool-only step display
-README.md                 setup and tutorial walkthrough
+README.md                 setup, running instructions, and example questions
 ```
 
 The LangGraph has two nodes: `assistant` and `tools`. `tools_condition` sends
@@ -159,7 +159,7 @@ only; it does not decide enrollment eligibility, capacity, grades, or policies.
 
 ## Direct and derived examples
 
-Presentation-ready diagrams of these examples are available in
+Graph diagrams of these examples are available in
 [`figures/`](figures/README.md), with matching recorded/traversed views and a class
 hierarchy view. Each has a 16:9 PNG and editable SVG export. The optional renderer
 uses Matplotlib and does not add a dependency to the chatbot itself.
@@ -186,19 +186,10 @@ pprint(list_courses.invoke({"category": "AI"}))
 PY
 ```
 
-## Suggested 20-minute video
+## Example questions
 
-| Time | Walkthrough |
-| --- | --- |
-| 0–2 min | Explain the task and show the small file structure. |
-| 2–6 min | Open the Turtle ontology, class hierarchy, 20 instances, and direct prerequisite edges. Point out the two missing offering terms. |
-| 6–9 min | Show `kg.py`: one graph, prerequisite traversal, and parent-category traversal. Run the direct tool examples above and inspect direct/indirect requirements. |
-| 9–12 min | Walk through the four tools and their JSON evidence. Show name resolution and the completion-record assumption. |
-| 12–15 min | Show `agent.py` and the assistant/tools loop, then `app.py` session history and visible steps. |
-| 15–19 min | Launch Chainlit and use the questions below, expanding tool steps to inspect arguments and results. |
-| 19–20 min | Recap evidence, unknown information, and the limits of prerequisite checks and LLM grounding. |
-
-Use this sequence in one chat:
+After starting the app, try these questions in one chat. Expand the tool steps
+to inspect the arguments and results:
 
 1. **Details:** “Tell me about Algorithms: its credits, recorded terms, and direct prerequisites.”
 2. **Subclass discovery:** “List the AI courses. Why is Deep Learning included?”
@@ -211,7 +202,7 @@ Use this sequence in one chat:
 6. **Missing information:** “Is Autonomous Robotics offered in Spring?”
    Expected interpretation: offering terms are not recorded; Spring availability is unknown.
 
-Optional quick examples:
+Additional questions:
 
 - “Which programming courses have a recorded Fall offering?” (`CS101`, `CS201`.)
 - “Tell me about the robot course.” (Ambiguous: ask which robotics course.)
