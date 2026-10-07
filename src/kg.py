@@ -5,7 +5,7 @@ from pathlib import Path
 from rdflib import Graph, Namespace, RDF, RDFS, URIRef
 
 EX = Namespace("https://example.org/course-advisor#")
-CATALOG_PATH = Path(__file__).parent / "data" / "course_catalog.ttl"
+CATALOG_PATH = Path(__file__).resolve().parent.parent / "data" / "course_catalog.ttl"
 
 asserted_graph = Graph().parse(CATALOG_PATH, format="turtle")
 

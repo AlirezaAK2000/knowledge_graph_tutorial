@@ -48,6 +48,29 @@ flowchart LR
     Assistant -->|answer| Chat
 ```
 
+## Project structure
+
+```text
+.
+├── app.py                    Chainlit entry point, chat events, and session history
+├── src/                      Chatbot and knowledge graph logic
+│   ├── __init__.py           Python package marker
+│   ├── kg.py                 Catalog loading, course lookup, and graph traversal
+│   ├── tools.py              Four graph tools available to the LLM
+│   └── agent.py              LLM configuration, instructions, and LangGraph workflow
+├── data/                     Knowledge graph data
+│   └── course_catalog.ttl    Catalog ontology and course instances
+├── img/                      README images
+│   └── ontology.jpg          Catalog ontology visualization
+├── .chainlit/                Chat interface configuration
+│   └── config.toml           Chainlit settings
+├── .env.example              API key and model configuration template
+├── requirements.txt          Python dependencies
+├── chainlit.md               Welcome content displayed in the chat interface
+├── .gitignore                Git ignore rules
+└── README.md                 Project overview and running instructions
+```
+
 ## Setup and run
 
 Use **Python 3.11 or newer**. Run these commands from the project root:

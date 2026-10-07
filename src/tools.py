@@ -3,7 +3,7 @@
 from langchain_core.tools import tool
 from rdflib import RDF
 
-from kg import (
+from .kg import (
     CATEGORIES, COURSES, TERMS, EX, asserted_graph,
     category_key, course_brief, course_categories, direct_prerequisites, label, prerequisite_facts,
     recorded_terms, resolve_course, resolve_filter,

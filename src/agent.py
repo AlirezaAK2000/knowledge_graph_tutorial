@@ -9,9 +9,9 @@ from langchain_openai import ChatOpenAI
 from langgraph.graph import START, MessagesState, StateGraph
 from langgraph.prebuilt import ToolNode, tools_condition
 
-from tools import TOOLS
+from .tools import TOOLS
 
-load_dotenv(Path(__file__).parent / ".env")
+load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
 SYSTEM_PROMPT = """You advise students about the fictional Cedar University catalog.
 Use graph tool results as evidence for ALL catalog-specific claims. You may reuse

@@ -1,4 +1,4 @@
-"""Chainlit session history and visible tool I/O; graph logic lives in agent.py."""
+"""Chainlit session history and visible tool I/O."""
 
 import json
 import os
@@ -6,7 +6,7 @@ import os
 import chainlit as cl
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
 
-from agent import build_agent
+from src.agent import build_agent
 
 
 @cl.on_chat_start
