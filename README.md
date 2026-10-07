@@ -22,12 +22,17 @@ Structures, which requires Object-Oriented Programming, which requires
 Introduction to Programming. Following the category hierarchy also includes
 Deep Learning when searching for AI courses.
 
-Four tools expose this graph to the chatbot: list_courses finds courses by
-category or offering term; get_course_details returns a course's description,
-credits, terms, and direct prerequisites; get_prerequisites finds direct and
-indirect requirements; and check_prerequisites compares those requirements with
-your completed courses to identify what is satisfied or missing. You can refer
-to courses by ID or name.
+Four tools let the chatbot query the catalog and traverse its relationships:
+
+| Tool | Input | What it does |
+| --- | --- | --- |
+| `list_courses` | Optional category and offering term | Lists matching course IDs and names. Category searches include subclasses, so an AI search also finds Machine Learning and Deep Learning courses. Term searches match recorded offerings. |
+| `get_course_details` | Course ID or name | Returns the course's description, credits, categories, offering terms, and direct prerequisites. Missing offering terms are reported as unknown. |
+| `get_prerequisites` | Course ID or name | Finds direct and indirect prerequisites and returns the relationships that explain each prerequisite chain. |
+| `check_prerequisites` | Target course and completed course IDs | Compares all direct and indirect requirements with the supplied completed courses, returning satisfied and missing requirements and whether all prerequisites are satisfied. |
+
+Course lookups also accept unique name fragments; ambiguous names prompt
+clarification. Prerequisite checks use the completed courses you explicitly supply.
 
 LangGraph connects the LLM to these tools. For each question, the model selects
 the tools it needs, receives graph results, and explains them in the Chainlit
