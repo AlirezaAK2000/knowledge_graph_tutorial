@@ -38,15 +38,7 @@ LangGraph connects the LLM to these tools. For each question, the model selects
 the tools it needs, receives graph results, and explains them in the Chainlit
 chat interface.
 
-```mermaid
-flowchart LR
-    TTL[course_catalog.ttl] --> Catalog[RDFLib catalog graph]
-    Catalog --> Tools[Graph tools]
-    Chat[Chainlit chat] --> Assistant[LLM assistant]
-    Assistant -->|tool calls| Tools
-    Tools -->|results| Assistant
-    Assistant -->|answer| Chat
-```
+![Chatbot project workflow](img/project.jpg)
 
 ## Project structure
 
@@ -61,7 +53,8 @@ flowchart LR
 ├── data/                     Knowledge graph data
 │   └── course_catalog.ttl    Catalog ontology and course instances
 ├── img/                      README images
-│   └── ontology.jpg          Catalog ontology visualization
+│   ├── ontology.jpg          Catalog ontology visualization
+│   └── project.jpg           Chatbot project workflow
 ├── .chainlit/                Chat interface configuration
 │   └── config.toml           Chainlit settings
 ├── .env.example              API key and model configuration template
@@ -102,13 +95,50 @@ changing `.env`.
 
 ## Example questions
 
-Try these questions in one chat:
+Use these three questions to test the chatbot. Answers may vary in wording but
+should contain the facts below.
 
-1. “Tell me about Algorithms: its credits, offering terms, and direct prerequisites.”
-2. “List the AI courses. Why is Deep Learning included?”
-3. “What are the direct and indirect prerequisites for Algorithms? Explain the chain.”
-4. “For Deep Learning, I have completed CS101, MA102, MA201, and ML201. Which prerequisites are satisfied and which are missing?”
-   The missing requirements are MA101 (Calculus) and MA202 (Optimization).
-5. “And if I also completed those two missing courses?”
-6. “Is Autonomous Robotics offered in Spring?”
-   Its offering terms are not recorded in the catalog, so availability is unknown.
+### 1. Course details and prerequisite traversal
+
+**Question**
+
+> How many credits is Algorithms, when is it offered, and what are its direct and indirect prerequisites? Explain the prerequisite chain.
+
+**Expected answer**
+
+- **Course:** Algorithms (CS202), 4 credits, with a recorded Spring offering.
+- **Direct prerequisite:** Data Structures (CS201).
+- **Indirect prerequisites:** Object-Oriented Programming (CS102) and Introduction to Programming (CS101).
+- **Chain:** CS202 requires CS201, which requires CS102, which requires CS101.
+
+### 2. Category and term filtering
+
+**Question**
+
+> Which AI courses have a recorded Spring offering? Why is Deep Learning included?
+
+**Expected answer**
+
+The matching courses are:
+
+- Search and Planning (AI201)
+- Knowledge Representation (AI202)
+- Deep Learning (ML301)
+- Reinforcement Learning (ML302)
+
+Deep Learning is included because its category follows the subclass chain
+DeepLearningCourse → MachineLearningCourse → AICourse.
+
+### 3. Checking completed prerequisites
+
+**Question**
+
+> For Deep Learning, I have completed Introduction to Programming, Linear Algebra, Probability and Statistics, and Introduction to Machine Learning. Which prerequisites are satisfied and which are missing?
+
+**Expected answer**
+
+Taking the supplied courses as the complete completion record:
+
+- **Satisfied:** Introduction to Programming (CS101), Linear Algebra (MA102), Probability and Statistics (MA201), and Introduction to Machine Learning (ML201).
+- **Missing:** Calculus (MA101) and Optimization (MA202).
+- **Result:** Not all prerequisites for Deep Learning (ML301) are satisfied.
