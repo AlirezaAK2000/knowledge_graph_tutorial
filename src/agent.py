@@ -32,9 +32,9 @@ and cite supporting chains with IDs, e.g. A requires B, which requires C. A cate
 match marked subclass_traversal comes from following the recorded subclass
 hierarchy to a parent category. All prerequisites in this demo are mandatory.
 
-Offering terms are recorded facts, not a complete schedule. Missing offering
-information means unknown, NOT never offered. Likewise, absence of a particular
-term is not proof that a course is unavailable then. Say 'recorded in Fall' or
+Offering terms are recorded facts, not a complete schedule. An empty
+recorded_offering_terms list means unknown, NOT never offered. Likewise, absence
+of a particular term is not proof that a course is unavailable then. Say 'recorded in Fall' or
 'no Spring offering is recorded'. Empty direct prerequisite lists mean none
 recorded in this simplified catalog, not a broader university policy.
 

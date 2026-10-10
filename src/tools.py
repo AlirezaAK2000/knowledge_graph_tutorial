@@ -19,21 +19,30 @@ def list_courses(category: str | None = None, term: str | None = None) -> dict:
     Spring, or Summer. A term filter matches recorded offerings only; courses
     with unknown terms are excluded, without implying they are not offered.
     """
-    categories = sorted({EX.Course} | set(graph.subjects(RDFS.subClassOf, None)), key=str)
-    terms = sorted(graph.subjects(RDF.type, EX.OfferingTerm), key=str)
+    # Find category classes that have a recorded parent class.
+    category_nodes = graph.subjects(RDFS.subClassOf, None)
+    categories = set(category_nodes)
+    categories.add(EX.Course)
+    categories = sorted(categories, key=str)
+
+    # Find individuals declared as offering terms.
+    term_nodes = graph.subjects(RDF.type, EX.OfferingTerm)
+    terms = sorted(term_nodes, key=str)
     category_node = resolve_filter(category, categories) if category else None
     term_node = resolve_filter(term, terms) if term else None
-    options = {
-        "available_categories": [
-            {"key": category_key(item), "label": label(item)} for item in categories
-        ],
-        "available_terms": [label(item) for item in terms],
-    }
     if (category and category_node is None) or (term and term_node is None):
-        return {"status": "unknown_filter", **options}
+        return {
+            "status": "unknown_filter",
+            "available_categories": [
+                {"key": category_key(item), "label": label(item)} for item in categories
+            ],
+            "available_terms": [label(item) for item in terms],
+        }
 
     courses = []
-    for course in graph.subjects(EX.courseId, None):
+    # Fetch course nodes to apply the requested filters.
+    course_nodes = graph.subjects(EX.courseId, None)
+    for course in course_nodes:
         if category_node and category_node not in course_categories(course):
             continue
         if term_node and (course, EX.offeredIn, term_node) not in graph:
@@ -47,11 +56,7 @@ def list_courses(category: str | None = None, term: str | None = None) -> dict:
             }
         courses.append(item)
     courses.sort(key=lambda item: item["id"])
-    return {
-        "courses": courses,
-        **options,
-        "offering_note": "Only recorded terms are matched; missing terms mean unknown.",
-    }
+    return {"courses": courses}
 
 
 @tool
@@ -59,25 +64,29 @@ def get_course_details(course: str) -> dict:
     """Read asserted details using a course ID, name, or unique name fragment.
 
     Return credits, recorded categories and terms, and direct prerequisites.
-    Ambiguous names return candidates for clarification. Missing offering terms
-    are explicitly unknown, rather than evidence the course is never offered.
+    Ambiguous names return candidates for clarification. An empty offering-term
+    list means availability is unknown, rather than the course is never offered.
     """
     node = resolve_course(course)
     if isinstance(node, dict):
         return node
     terms = recorded_terms(node)
+    # Get the course's explicitly assigned categories.
+    category_nodes = graph.objects(node, RDF.type)
+    categories = [
+        label(item) for item in category_nodes
+        if item == EX.Course or (item, RDFS.subClassOf, None) in graph
+    ]
+    # Fetch direct prerequisites before formatting their IDs and names.
+    prerequisite_nodes = direct_prerequisites(node)
+    prerequisites = [course_brief(item) for item in prerequisite_nodes]
     return {
         **course_brief(node),
         "description": str(graph.value(node, EX.description)),
         "credits": int(graph.value(node, EX.credits)),
-        "recorded_categories": sorted(
-            label(item) for item in graph.objects(node, RDF.type)
-            if item == EX.Course or (item, RDFS.subClassOf, None) in graph
-        ),
+        "recorded_categories": sorted(categories),
         "recorded_offering_terms": terms,
-        "offering_information": "recorded" if terms else "unknown (not recorded)",
-        "direct_prerequisites": [course_brief(item) for item in direct_prerequisites(node)],
-        "evidence": "asserted catalog facts; an empty prerequisite list means none recorded",
+        "direct_prerequisites": prerequisites,
     }
 
 
@@ -114,12 +123,9 @@ def check_prerequisites(course: str, completed_course_ids: list[str]) -> dict:
     required = sorted(facts["direct"] + facts["indirect"], key=lambda item: item["id"])
     return {
         "course": facts["course"],
-        "completed_course_ids": sorted(completed),
-        "assumption": "The supplied completed-course list is the complete record for this demonstration.",
         "satisfied": [item for item in required if item["id"] in completed],
         "missing": [item for item in required if item["id"] not in completed],
         "all_prerequisites_satisfied": all(item["id"] in completed for item in required),
-        "scope": "Prerequisite satisfaction only; not a complete enrollment decision.",
         "supporting_direct_relationships": facts["supporting_direct_relationships"],
     }
 

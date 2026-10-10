@@ -17,7 +17,9 @@ terms are Fall, Spring, and Summer.
 ![Course catalog ontology](img/ontology.jpg)
 
 RDFLib loads this knowledge graph, and graph traversal finds indirect
-prerequisites and parent categories. For example, Algorithms requires Data
+prerequisites and parent categories. Each recorded `hasPrerequisite` edge
+represents an immediate requirement; following these edges finds indirect ones.
+For example, Algorithms requires Data
 Structures, which requires Object-Oriented Programming, which requires
 Introduction to Programming. Following the category hierarchy also includes
 Deep Learning when searching for AI courses.
