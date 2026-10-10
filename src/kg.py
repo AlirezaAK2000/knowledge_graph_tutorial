@@ -7,26 +7,19 @@ from rdflib import Graph, Namespace, RDF, RDFS, URIRef
 EX = Namespace("https://example.org/course-advisor#")
 CATALOG_PATH = Path(__file__).resolve().parent.parent / "data" / "course_catalog.ttl"
 
-asserted_graph = Graph().parse(CATALOG_PATH, format="turtle")
-
-# Identifiers select catalog individuals without counting ontology classes.
-COURSES = sorted(asserted_graph.subjects(EX.courseId, None), key=str)
-CATEGORIES = sorted(
-    {EX.Course} | set(asserted_graph.subjects(RDFS.subClassOf, None)), key=str
-)
-TERMS = sorted(asserted_graph.subjects(RDF.type, EX.OfferingTerm), key=str)
+graph = Graph().parse(CATALOG_PATH, format="turtle")
 
 
 def course_brief(course: URIRef) -> dict:
     """Return a JSON-friendly identifier and name from the asserted graph."""
     return {
-        "id": str(asserted_graph.value(course, EX.courseId)),
-        "name": str(asserted_graph.value(course, EX.name)),
+        "id": str(graph.value(course, EX.courseId)),
+        "name": str(graph.value(course, EX.name)),
     }
 
 
 def label(resource: URIRef) -> str:
-    return str(asserted_graph.value(resource, RDFS.label))
+    return str(graph.value(resource, RDFS.label))
 
 
 def category_key(category: URIRef) -> str:
@@ -36,14 +29,14 @@ def category_key(category: URIRef) -> str:
 def resolve_course(reference: str) -> URIRef | dict:
     """Accept a case-insensitive ID, exact name, or unambiguous name fragment."""
     reference = reference.strip().casefold()
-    exact = [
-        course for course in COURSES
+    exact = sorted((
+        course for course in graph.subjects(EX.courseId, None)
         if reference in {value.casefold() for value in course_brief(course).values()}
-    ]
-    matches = exact or [
-        course for course in COURSES
+    ), key=str)
+    matches = exact or sorted((
+        course for course in graph.subjects(EX.courseId, None)
         if reference and reference in course_brief(course)["name"].casefold()
-    ]
+    ), key=str)
     if len(matches) == 1:
         return matches[0]
     return {
@@ -64,18 +57,18 @@ def resolve_filter(reference: str, resources: list[URIRef]) -> URIRef | None:
 
 
 def recorded_terms(course: URIRef) -> list[str]:
-    return sorted(label(term) for term in asserted_graph.objects(course, EX.offeredIn))
+    return sorted(label(term) for term in graph.objects(course, EX.offeredIn))
 
 
 def direct_prerequisites(course: URIRef) -> list[URIRef]:
-    return sorted(asserted_graph.objects(course, EX.hasDirectPrerequisite), key=str)
+    return sorted(graph.objects(course, EX.hasDirectPrerequisite), key=str)
 
 
 def course_categories(course: URIRef) -> set[URIRef]:
     """Follow each recorded category's subclass edges, including the category itself."""
     categories = set()
-    for category in asserted_graph.objects(course, RDF.type):
-        categories.update(asserted_graph.transitive_objects(category, RDFS.subClassOf))
+    for category in graph.objects(course, RDF.type):
+        categories.update(graph.transitive_objects(category, RDFS.subClassOf))
     return categories
 
 

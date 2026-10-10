@@ -1,10 +1,10 @@
 """Four fixed graph tools; the LLM supplies arguments, never SPARQL."""
 
 from langchain_core.tools import tool
-from rdflib import RDF
+from rdflib import Literal, RDF, RDFS
 
 from .kg import (
-    CATEGORIES, COURSES, TERMS, EX, asserted_graph,
+    EX, graph,
     category_key, course_brief, course_categories, direct_prerequisites, label, prerequisite_facts,
     recorded_terms, resolve_course, resolve_filter,
 )
@@ -19,31 +19,34 @@ def list_courses(category: str | None = None, term: str | None = None) -> dict:
     Spring, or Summer. A term filter matches recorded offerings only; courses
     with unknown terms are excluded, without implying they are not offered.
     """
-    category_node = resolve_filter(category, CATEGORIES) if category else None
-    term_node = resolve_filter(term, TERMS) if term else None
+    categories = sorted({EX.Course} | set(graph.subjects(RDFS.subClassOf, None)), key=str)
+    terms = sorted(graph.subjects(RDF.type, EX.OfferingTerm), key=str)
+    category_node = resolve_filter(category, categories) if category else None
+    term_node = resolve_filter(term, terms) if term else None
     options = {
         "available_categories": [
-            {"key": category_key(item), "label": label(item)} for item in CATEGORIES
+            {"key": category_key(item), "label": label(item)} for item in categories
         ],
-        "available_terms": [label(item) for item in TERMS],
+        "available_terms": [label(item) for item in terms],
     }
     if (category and category_node is None) or (term and term_node is None):
         return {"status": "unknown_filter", **options}
 
     courses = []
-    for course in COURSES:
+    for course in graph.subjects(EX.courseId, None):
         if category_node and category_node not in course_categories(course):
             continue
-        if term_node and (course, EX.offeredIn, term_node) not in asserted_graph:
+        if term_node and (course, EX.offeredIn, term_node) not in graph:
             continue
         item = course_brief(course)
         if category_node:
             item["category_match"] = {
                 "category": category_key(category_node),
-                "source": "asserted" if (course, RDF.type, category_node) in asserted_graph
+                "source": "asserted" if (course, RDF.type, category_node) in graph
                 else "subclass_traversal",
             }
         courses.append(item)
+    courses.sort(key=lambda item: item["id"])
     return {
         "courses": courses,
         **options,
@@ -65,11 +68,11 @@ def get_course_details(course: str) -> dict:
     terms = recorded_terms(node)
     return {
         **course_brief(node),
-        "description": str(asserted_graph.value(node, EX.description)),
-        "credits": int(asserted_graph.value(node, EX.credits)),
+        "description": str(graph.value(node, EX.description)),
+        "credits": int(graph.value(node, EX.credits)),
         "recorded_categories": sorted(
-            label(item) for item in asserted_graph.objects(node, RDF.type)
-            if item in CATEGORIES
+            label(item) for item in graph.objects(node, RDF.type)
+            if item == EX.Course or (item, RDFS.subClassOf, None) in graph
         ),
         "recorded_offering_terms": terms,
         "offering_information": "recorded" if terms else "unknown (not recorded)",
@@ -102,9 +105,11 @@ def check_prerequisites(course: str, completed_course_ids: list[str]) -> dict:
     if isinstance(node, dict):
         return node
     completed = {item.strip().upper() for item in completed_course_ids}
-    known_ids = {course_brief(item)["id"] for item in COURSES}
-    if completed - known_ids:
-        return {"status": "unknown_completed_course_ids", "unknown_ids": sorted(completed - known_ids)}
+    unknown_ids = sorted(
+        item for item in completed if (None, EX.courseId, Literal(item)) not in graph
+    )
+    if unknown_ids:
+        return {"status": "unknown_completed_course_ids", "unknown_ids": unknown_ids}
     facts = prerequisite_facts(node)
     required = sorted(facts["direct"] + facts["indirect"], key=lambda item: item["id"])
     return {
